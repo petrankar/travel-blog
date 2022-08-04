@@ -42,11 +42,10 @@ export class AuthenticationService {
           this.isLoggedIn$.next(false);
         },
         complete: () => {
-          console.info('complete');
           this.isLoggedIn$.next(true);
           setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 2000);
+            this.router.navigate(['/administrator']);
+          }, 4000);
         },
       });
 
@@ -77,7 +76,6 @@ export class AuthenticationService {
         }
       },
       complete: () => {
-        console.log('logout complete');
         this.removeUserFromSessionStorage();
         this.isLoggedIn$.next(false);
       },

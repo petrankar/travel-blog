@@ -4,7 +4,7 @@ export interface Landmark {
   updatedAt: string;
   url: string;
   short_info: string;
-  photo: string;
+  photo: Photo;
   photo_thumb: Photo;
   location: Array<Number>;
   objectId: string;

@@ -23,7 +23,6 @@ export class LandmarkService {
 
   getLandmark(id: string | null) {
     const url = this.baseEndpoint + this.landmarksPath + id;
-    console.log('🚀 - LandmarkService - getLandmark - url', url);
     return this.http.get<Landmark>(url);
   }
 
@@ -37,8 +36,6 @@ export class LandmarkService {
     };
 
     const url = this.baseEndpoint + this.landmarksPath + id;
-    console.log('updateLandmark');
-    console.log(landmark);
     return this.http.put(url, { ...landmark, location: [11, 22] }, options);
   }
 }

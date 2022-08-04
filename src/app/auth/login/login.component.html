@@ -1,4 +1,4 @@
-<div class="container-lg">
+<div *ngIf="!isLoggedIn" class="container-lg">
   <h1 class="display-5" style="padding: 1rem 0">Login</h1>
   <div class="container-sm" *ngIf="!isLoggedIn">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -26,11 +26,17 @@
       </div>
       <div class="form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <label class="form-check-label" for="exampleCheck1">Remember me</label>
       </div>
       <button type="text" class="btn btn-primary">Submit</button>
     </form>
-    <div>{{ loginForm.value | json }}</div>
   </div>
-  <div *ngIf="isLoggedIn">You have successfully logged in</div>
+</div>
+
+<div *ngIf="isLoggedIn" class="container-lg">
+  <div class="row status-container">
+    <div class="alert alert-success col" role="alert">
+      You have been successfully logged in, redirecting you to admin page
+    </div>
+  </div>
 </div>

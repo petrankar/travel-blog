@@ -54,7 +54,6 @@ export class AdministratorComponent implements OnInit {
     });
 
     this.landmarkService.getLandmarks().subscribe((landmarkList) => {
-      console.log(landmarkList);
       this.landmarkList = landmarkList;
     });
   }
@@ -65,11 +64,9 @@ export class AdministratorComponent implements OnInit {
     this.updateResponseMessage = '';
     let landmark: Landmark;
 
-    console.log('on selection change');
     this.isLandmarkFetching = true;
     this.landmarkService.getLandmark(this.selectedLandmarkId).subscribe({
       next: (landmarkFetched: Landmark) => {
-        console.log('landmark: ', landmarkFetched);
         landmark = landmarkFetched;
       },
       error: (e) => {
@@ -88,8 +85,6 @@ export class AdministratorComponent implements OnInit {
   }
 
   onUpdateLandmark() {
-    console.log('onUpdateLandmark');
-    console.log(this.landmarkForm.value);
     this.landmarkService
       .updateLandmark(this.selectedLandmarkId, this.landmarkForm.value)
       .subscribe({

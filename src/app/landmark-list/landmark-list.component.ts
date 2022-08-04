@@ -14,20 +14,7 @@ export class LandmarkListComponent implements OnInit {
 
   ngOnInit() {
     this.landmarkService.getLandmarks().subscribe((landmarkList) => {
-      console.log(landmarkList);
       this.landmarkList = landmarkList;
     });
-
-    // this.authService
-    //   .login({ username: 'admin', password: 'admin' })
-    //   .subscribe((userDetails) => {
-    //     console.log(userDetails);
-
-    //     setTimeout(() => {
-    //       this.authService.logout(userDetails.sessionToken).subscribe((res) => {
-    //         console.log('logout response: ', res);
-    //       });
-    //     }, 5000);
-    //   });
   }
 }

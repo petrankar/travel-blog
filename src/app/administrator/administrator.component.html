@@ -90,18 +90,20 @@
         class="spinner-border text-primary"
         role="status"
       ></div>
-      <h5 *ngIf="updateResponseMessage" class="col">
-        {{ updateResponseMessage }}
-      </h5>
+
+      <div *ngIf="updateResponseMessage" class="row status-container">
+        <div class="alert alert-secondary" role="alert">
+          {{ updateResponseMessage }}
+        </div>
+      </div>
     </div>
   </div>
 
   <ng-template #notAuhorized>
     <div class="row status-container">
-      <h4 class="col">
-        Sorry, you are not authorized to view this page, redirecting you to
-        login page
-      </h4>
+      <div class="alert alert-danger" role="alert">
+        Sorry, you are not authorized to view this page
+      </div>
     </div>
   </ng-template>
 </div>

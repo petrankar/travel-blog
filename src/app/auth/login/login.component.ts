@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.username$.subscribe((username) => {
       this.username = username;
-      console.log('behavior subject ', username);
     });
 
     this.loginForm = this.formBuilder.group({
@@ -43,11 +42,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async login() {
-    console.log('onSubmit');
-    console.log(this.loginForm.value);
-
-    const result = await this.authService.login(this.loginForm.value);
-    console.log('result: ', result);
+  login() {
+    const result = this.authService.login(this.loginForm.value);
   }
 }

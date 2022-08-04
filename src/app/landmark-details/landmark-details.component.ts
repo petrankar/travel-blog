@@ -35,9 +35,7 @@ export class LandmarkDetailsComponent implements OnInit {
     this.landmarkId = this.route.snapshot.paramMap.get('id');
 
     this.landmarkService.getLandmark(this.landmarkId).subscribe( landmark => {
-      console.log('landmark: ', landmark);
       this.landmark = landmark;
-      console.log('this.landmark: ', this.landmark.location);
       this.landmarkMarker = {lat: <number>landmark.location[1], lng: <number> landmark.location[0]};
     })
   }
