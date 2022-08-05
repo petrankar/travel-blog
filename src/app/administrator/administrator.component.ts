@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/services/authentication.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { LandmarkService } from 'src/services/landmark.service';
 import { Landmark } from '../landmarks.interface';
@@ -17,6 +22,10 @@ export class AdministratorComponent implements OnInit {
   public landmarkList: Landmark[];
   public isLandmarkFetching = false;
   public updateResponseMessage = '';
+  public lastUpdatedLandmark: {
+    id: string;
+    title: string;
+  };
 
   constructor(
     public authService: AuthenticationService,
@@ -26,28 +35,14 @@ export class AdministratorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.landmarkForm = this.formBuilder.group(
-      {
-        title: ['', Validators.required],
-        url: ['', [Validators.required]],
-        short_info: ['', Validators.required],
-        description: ['', Validators.required],
-        // password: [
-        //   '',
-        //   [
-        //     Validators.minLength(6),
-        //     this.isAddMode ? Validators.required : Validators.nullValidator,
-        //   ],
-        // ],
-        // confirmPassword: [
-        //   '',
-        //   this.isAddMode ? Validators.required : Validators.nullValidator,
-        // ],
-      }
-      // {
-      //   validator: MustMatch('password', 'confirmPassword'),
-      // }
-    );
+    this.landmarkForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      url: ['', [Validators.required]],
+      short_info: ['', Validators.required],
+      description: ['', Validators.required],
+      latitude: [null, Validators.required],
+      longitude: [null, Validators.required],
+    });
 
     this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
@@ -62,12 +57,15 @@ export class AdministratorComponent implements OnInit {
 
   onSelectionChange() {
     this.updateResponseMessage = '';
+    this.lastUpdatedLandmark = { id: '', title: '' };
+
     let landmark: Landmark;
 
     this.isLandmarkFetching = true;
     this.landmarkService.getLandmark(this.selectedLandmarkId).subscribe({
       next: (landmarkFetched: Landmark) => {
         landmark = landmarkFetched;
+        console.log('landmark: ', landmark);
       },
       error: (e) => {
         console.error(e);
@@ -80,6 +78,8 @@ export class AdministratorComponent implements OnInit {
         this.landmarkForm.controls['description'].setValue(
           landmark?.description
         );
+        this.landmarkForm.controls['latitude'].setValue(landmark?.location[1]);
+        this.landmarkForm.controls['longitude'].setValue(landmark?.location[0]);
       },
     });
   }
@@ -92,14 +92,23 @@ export class AdministratorComponent implements OnInit {
           console.log(response);
           this.updateResponseMessage = response?.message;
         },
-        error: (e: Error) => {
+        error: (e: any) => {
           console.error(e);
-          this.updateResponseMessage = e?.message;
+          this.updateResponseMessage = e.error?.message;
         },
         complete: () => {
           console.log('complete');
+
+          this.lastUpdatedLandmark = {
+            id: this.selectedLandmarkId,
+            title: this.landmarkTitle.value,
+          };
           this.selectedLandmarkId = '';
         },
       });
+  }
+
+  get landmarkTitle() {
+    return this.landmarkForm.get('title') as FormControl;
   }
 }

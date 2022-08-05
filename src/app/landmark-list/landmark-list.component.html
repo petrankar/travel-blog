@@ -1,4 +1,4 @@
-<div class="container-lg">
+<div class="container-lg landmark-list">
   <h1 class="display-5" style="padding: 1rem 0">Dubai's Landmarks</h1>
   <ul class="row itemsBlock">
     <li *ngFor="let landmark of landmarkList" class="col-md-12 col-lg-6 col-12">
@@ -30,20 +30,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <article>
-        <img src="{{ landmark.photo_thumb.url }}" />
-        <div class="text">
-          <h1>
-            <a
-              routerLinkActive="active"
-              [routerLink]="['/landmark', landmark.objectId]"
-              >{{ landmark.title }}</a
-            >
-          </h1>
-          <p>{{ landmark.short_info }}</p>
-        </div>
-      </article> -->
     </li>
   </ul>
 </div>

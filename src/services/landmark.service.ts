@@ -27,6 +27,15 @@ export class LandmarkService {
   }
 
   updateLandmark(id: string, landmark: any): Observable<any> {
+    // transform location to array
+    const location = [landmark.longitude, landmark.latitude];
+    delete landmark.longitude;
+    delete landmark.latitude;
+    const landmarkToPost = {
+      ...landmark,
+      location,
+    };
+
     const sessionToken = sessionStorage.getItem('sessionToken');
     const options = {
       headers: new HttpHeaders({
@@ -36,6 +45,6 @@ export class LandmarkService {
     };
 
     const url = this.baseEndpoint + this.landmarksPath + id;
-    return this.http.put(url, { ...landmark, location: [11, 22] }, options);
+    return this.http.put(url, { ...landmarkToPost }, options);
   }
 }

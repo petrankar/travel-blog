@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError} from "rxjs/operators";
-import { HttpClient } from '@angular/common/http';
 import { Landmark } from '../landmarks.interface';
 import { LandmarkService } from 'src/services/landmark.service';
 
@@ -22,7 +21,6 @@ export class LandmarkDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private landmarkService: LandmarkService,
-    private httpClient: HttpClient
     
    
   ) {
