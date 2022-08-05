@@ -1,14 +1,12 @@
 # TravelBlog
 
-This project is a travel blog with the most site that showcases some of Dubai's Landmark buildings.
-
-It was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6.
+This project is a travel blog application for demonstration purposes that showcases some of Dubai's Landmark buildings.
 
 ## Clone the Project
 
-You can clode the project by one of the following ways:
+You can clone the project by one of the following ways:
 
-SSH: `git clone git@github.com:petrankar/travel-blog.git`
+SSH: `git clone git@github.com:petrankar/travel-blog.git`<br>
 HTTP: `git clone https://github.com/petrankar/travel-blog.git`
 
 ## Install the Project
@@ -23,9 +21,7 @@ The application will automatically reload if you change any of the source files.
 
 ## CLI, Node version
 
-The following versions of tools was used for the development of the application:
-**Angular CLI: 14.0.6
-Node: 16.16.0**
+The application was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.6 and Node: 16.16.0
 
 ## Build
 
