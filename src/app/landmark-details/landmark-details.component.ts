@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, catchError} from "rxjs/operators";
+import { Observable } from 'rxjs';
 import { Landmark } from '../landmarks.interface';
 import { LandmarkService } from 'src/services/landmark.service';
 
@@ -15,14 +14,13 @@ export class LandmarkDetailsComponent implements OnInit {
   public landmarkId: string | null;
   public landmark = {} as Landmark;
   public landmarkMarker: google.maps.LatLngLiteral;
-
+  public landmarkCenter: google.maps.LatLngLiteral;
+  public zoom = 10;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private landmarkService: LandmarkService,
-    
-   
   ) {
     this.landmark$ = new Observable<Landmark>;
     this.landmarkId = null;
@@ -35,20 +33,15 @@ export class LandmarkDetailsComponent implements OnInit {
     this.landmarkService.getLandmark(this.landmarkId).subscribe( landmark => {
       this.landmark = landmark;
       this.landmarkMarker = {lat: <number>landmark.location[1], lng: <number> landmark.location[0]};
+      this.landmarkCenter = this.landmarkMarker;
     })
   }
 
-  center: google.maps.LatLngLiteral = {
-    lat: 25.276987,
-    lng: 55.296249
-  };
-
-  zoom = 10;
   markerOptions: google.maps.MarkerOptions = {
       draggable: false
   };
-  markerPositions: google.maps.LatLngLiteral[] = [];
-  addMarker(event: google.maps.MapMouseEvent) {
-      if (event.latLng != null) this.markerPositions.push(event.latLng.toJSON());
+
+  navigateBack() {
+    this.router.navigate(["/dashboard"]);
   }
 }

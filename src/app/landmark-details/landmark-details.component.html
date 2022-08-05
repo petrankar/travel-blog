@@ -1,6 +1,10 @@
 <div class="container-lg">
-  <h1 class="display-5" style="padding: 1rem 0">{{ landmark.title }}</h1>
+  <h1 class="display-5 flex-title" style="padding: 1rem 0">
+    <span>{{ landmark.title }}</span>
+    <button class="btn btn-secondary" (click)="navigateBack()">Back</button>
+  </h1>
 
+  <!-- landmark card -->
   <div class="card mb-3" style="max-width: 100%">
     <div class="row g-0">
       <div class="col-md-2">
@@ -22,6 +26,12 @@
             {{ landmark.description }}
           </p>
 
+          <p class="card-text">
+            <small class="text-muted"
+              >Last updated {{ landmark.updatedAt | date: "medium" }}</small
+            >
+          </p>
+
           <button
             type="button"
             class="btn btn-outline-success and-all-other-classes"
@@ -33,22 +43,18 @@
               Official Website
             </a>
           </button>
-
-          <!-- <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p> -->
         </div>
       </div>
     </div>
   </div>
 
+  <!-- google map -->
   <div class="map">
     <google-map
       height="500px"
       width="100%"
-      [center]="center"
+      [center]="landmarkCenter"
       [zoom]="zoom"
-      (mapClick)="addMarker($event)"
     >
       <map-marker
         [position]="landmarkMarker"
@@ -75,11 +81,7 @@
         </h5>
       </div>
       <div class="modal-body">
-        <img
-          src="{{ landmark?.photo?.url }}"
-          class="img-fluid rounded-start"
-          alt="..."
-        />
+        <img src="{{ landmark.photo.url }}" class="img-fluid rounded-start" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">

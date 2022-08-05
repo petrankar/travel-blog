@@ -1,7 +1,7 @@
 <div *ngIf="!isLoggedIn" class="container-lg">
   <h1 class="display-5" style="padding: 1rem 0">Login</h1>
-  <div class="container-sm" *ngIf="!isLoggedIn">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div class="row" *ngIf="!isLoggedIn">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="col col-sm-6">
       <div class="form-group">
         <label for="usernameInput">Username</label>
         <input

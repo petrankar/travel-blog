@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { User } from 'src/app/user.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -16,11 +16,9 @@ export class AuthenticationService {
   };
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  public username$: Subject<string> = new BehaviorSubject<string>('');
   public isLoggedIn$: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {
-    console.log('auth service constructor');
     const userToken = sessionStorage.getItem('sessionToken');
     if (userToken) this.isLoggedIn$.next(true);
   }
@@ -32,13 +30,11 @@ export class AuthenticationService {
       .post<User>(url, userParam, this.httpOptions)
       .subscribe({
         next: (userDetails: any) => {
-          this.username$.next(userDetails.userId);
           sessionStorage.setItem('sessionToken', userDetails.sessionToken);
           sessionStorage.setItem('userId', userDetails.userId);
         },
         error: (e) => {
           console.error(e);
-          this.username$.next('');
           this.isLoggedIn$.next(false);
         },
         complete: () => {
@@ -54,7 +50,6 @@ export class AuthenticationService {
 
   logout() {
     const userToken = sessionStorage.getItem('sessionToken');
-    console.log('userToken: ', userToken);
 
     const options = {
       headers: new HttpHeaders({
@@ -65,9 +60,7 @@ export class AuthenticationService {
 
     const url = this.baseEndpoint + this.userLogoutPath;
     const result = this.http.get(url, options).subscribe({
-      next: (res: any) => {
-        console.log('next: ', res);
-      },
+      next: (res: any) => {},
       error: (e) => {
         console.error(e);
         if (e.error.message === 'Invalid Session Token') {

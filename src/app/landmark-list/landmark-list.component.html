@@ -6,9 +6,8 @@
         <div class="row g-0">
           <div class="col-sm-4">
             <img
-              src="{{ landmark?.photo_thumb?.url }}"
+              src="{{ landmark.photo_thumb.url }}"
               class="img-fluid rounded-start"
-              alt="..."
             />
           </div>
           <div class="col-sm-8">
@@ -24,7 +23,9 @@
                 {{ landmark.short_info }}
               </p>
               <p class="card-text">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted"
+                  >Last updated {{ landmark.updatedAt | date: "medium" }}</small
+                >
               </p>
             </div>
           </div>
